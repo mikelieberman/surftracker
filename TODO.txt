@@ -1,0 +1,26 @@
+Store a list of domain/URL filters and when you visit a page check
+that the URL appears in list when collecting data.
+
+With the button, have a popup menu with options:
+    Filters...
+    Visualize
+    Clear history
+
+
+Construct an adjacency list.
+
+Each node will have following attributes:
+  Number of times visited.
+  Number of times arrived at from external site (entrance node).
+  Number of times left from to external site (exit node).
+Nodes can be shown as pie charts with breakdowns?
+
+Directed edges between nodes within the network showing navigation with:
+  Number of times link was traversed.
+
+
+Use thejit.org graph visualizations to show the graphs.
+
+The graph visualization can be filtered on above attributes and also
+by domain.
+

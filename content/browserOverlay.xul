@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet type="text/css" href="chrome://global/skin/" ?>
+<?xml-stylesheet type="text/css"
+  href="chrome://surftracker/skin/browserOverlay.css" ?>
+
+<overlay id="surftracker-browser-overlay"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <script type="application/x-javascript"
+    src="chrome://surftracker/content/browserOverlay.js"></script>
+
+  <toolbar>
+    <toolbarbutton id="surftracker-button"
+      type="menu-button"
+      oncommand="SurfTracker.BrowserOverlay.toggleActive();"
+      persist="_jsonfilters"
+      _jsonfilters="">
+      <menupopup>
+        <menuitem label="Filters..."
+          oncommand="SurfTracker.BrowserOverlay.openFiltersWindow(); event.stopPropagation();"/>
+        <menuitem label="Visualize"
+          oncommand="event.stopPropagation();"/>
+        <menuitem label="Clear history"
+          oncommand="event.stopPropagation();"/>
+      </menupopup>
+    </toolbarbutton>
+  </toolbar>
+</overlay>
+

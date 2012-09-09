@@ -1,0 +1,5 @@
+content surftracker content/
+skin    surftracker classic/1.0 skin/
+
+overlay chrome://browser/content/browser.xul chrome://surftracker/content/browserOverlay.xul
+

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+
+<window id="surftracker-preferences-window"
+  title="SurfTracker Preferences"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <script type="application/x-javascript"
+    src="chrome://surftracker/content/preferences.js"></script>
+
+  <listbox id="surftracker-filters-listbox"
+    rows="10"
+    seltype="multiple">
+    <listitem label="en.wikipedia.org"/>
+  </listbox>
+  <textbox id="surftracker-filter-textbox"
+    placeholder="Enter filter..."
+    onkeypress="SurfTracker.Preferences.keyPress(event);"/>
+  <hbox>
+    <button id="surftracker-add-filter-button"
+      label="Add filter"
+      oncommand="SurfTracker.Preferences.addFilter();"/>
+    <button id="surftracker-delete-filter-button"
+      label="Remove filters"
+      oncommand="SurfTracker.Preferences.removeFilters();"/>
+  </hbox>
+</window>
+

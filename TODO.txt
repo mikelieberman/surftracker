@@ -1,3 +1,17 @@
+TODO/NOTES
+
+
+Filters:
+
+Use hash table for filters instead of list.
+
+
+History:
+
+Track individual page history for each tab so that multiple tabs can
+be used for data collection.
+
+
 Graph implementation:
 
 Construct an adjacency list.
@@ -9,6 +23,8 @@ Each node will have following attributes:
 
 Directed edges between nodes within the network showing navigation with:
   Number of times link was traversed.
+
+Persistent storage of graph.
 
 
 Visualization:

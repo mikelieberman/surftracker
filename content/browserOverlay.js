@@ -8,22 +8,13 @@ SurfTracker.BrowserOverlay = {
         this.toggleActive();
         this.loadFilters();
 
-        // Capture page loads.
+        // Capture clicks for links.
         if (gBrowser !== undefined) {
             let that = this;
-            gBrowser.addEventListener("load", function(ev) {
-                that.captureLoad(ev);
+            gBrowser.addEventListener("click", function(ev) {
+                that.captureClick(ev);
             }, true);
         }
-    },
-
-    openFiltersWindow : function(ev) {
-        let that = this;
-
-        let win = window.openDialog('chrome://surftracker/content/filters.xul', 'surftracker-filters', 'resizable=yes', {filters: this.filters});
-        win.addEventListener("unload", function() {
-            that.saveFilters();
-        }, true);
     },
 
     /*
@@ -43,27 +34,36 @@ SurfTracker.BrowserOverlay = {
     },
 
     /*
-     * Outdated... We are capturing page load.
+     * Capture clicks on links so we can make the jump.
+     */
+    captureClick : function(ev) {
+        if (this.active && ev.target.hasAttribute("href")) {
+            let curUrl = this._getUrl(gBrowser.contentDocument.location.href);
+            let nextUrl = this._getUrl(ev.target.getAttribute("href"));
+
+            if (curUrl !== nextUrl) {
+                SurfTracker.SurfGraph.addLink(curUrl, nextUrl);
+            }
+        }
+    },
+
+    /*
+     * Capture page loads and update the surf graph.
      */
     /*
-    captureClick : function(ev) {
-        if (!this.active || ev.target.tagName !== "A") {
-            return;
-        }
-
-        // FIGURE OUT HOW TO GET CURRENT LOCATION OF WINDOW
-        alert(gBrowser.contentDocument.location.href+" --> "+ev.target.href);
-    },
-    */
-
     captureLoad : function(ev) {
         if (!this.active) {
             return;
         }
 
-        //let loc = this._getLocation(gBrowser.contentDocument.location.href);
-        //alert(loc.hostname);
+        let prevUrl = this.prevHref !== null ? this._getUrl(prevHref) : null;
+        let curUrl = this._getUrl(gBrowser.contentDocument.location.href);
+
+        SurfTracker.SurfGraph.addLink(prevUrl, curUrl);
+
+        this.prevHref = curHref;
     },
+    */
 
     /*
      * Enable/disable surf tracking.
@@ -77,10 +77,23 @@ SurfTracker.BrowserOverlay = {
     /*
      * Parse URL using a trick.
      */
-    _getLocation : function(href) {
+    _getUrl : function(href) {
         let l = gBrowser.contentDocument.createElement("a");
         l.href = href;
-        return l;
+        return l.hostname+l.pathname;
+    },
+
+    openFiltersWindow : function(ev) {
+        let that = this;
+
+        let win = window.openDialog("chrome://surftracker/content/filters.xul", "surftracker-filters", "resizable=yes", {filters: this.filters});
+        win.addEventListener("unload", function() {
+            that.saveFilters();
+        }, true);
+    },
+
+    openVisualizeWindow : function(ev) {
+        window.openDialog("chrome://surftracker/content/visualization.html", "surftracker-visualization", "resizable=yes", {adjList: SurfTracker.SurfGraph.adjList});
     },
 }
 

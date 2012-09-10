@@ -8,20 +8,25 @@
   xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
   <script type="application/x-javascript"
     src="chrome://surftracker/content/browserOverlay.js"></script>
+  <script type="application/x-javascript"
+    src="chrome://surftracker/content/surfGraph.js"></script>
 
   <toolbar>
     <toolbarbutton id="surftracker-button"
       type="menu-button"
+      tooltiptext="SurfTracker"
       oncommand="SurfTracker.BrowserOverlay.toggleActive();"
       persist="_jsonfilters"
       _jsonfilters="">
       <menupopup>
+        <menuitem label="SurfTracker Options" disabled="true"/>
+        <menuseparator/>
         <menuitem label="Filters..."
           oncommand="SurfTracker.BrowserOverlay.openFiltersWindow(); event.stopPropagation();"/>
         <menuitem label="Visualize"
-          oncommand="event.stopPropagation();"/>
-        <menuitem label="Clear history"
-          oncommand="event.stopPropagation();"/>
+          oncommand="SurfTracker.BrowserOverlay.openVisualizeWindow(); event.stopPropagation();"/>
+        <menuitem label="Clear surf graph"
+          oncommand="SurfTracker.SurfGraph.clear(); event.stopPropagation();"/>
       </menupopup>
     </toolbarbutton>
   </toolbar>
